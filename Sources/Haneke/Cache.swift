@@ -199,7 +199,7 @@ open class Cache<T: DataConvertible> where T.Result == T, T : DataRepresentable 
     open func addFormat(_ format : Format<T>) {
         let name = format.name
         let formatPath = self.formatPath(withFormatName: name)
-        let memoryCache = NSCache<AnyObject, AnyObject>()
+        let memoryCache = self.formats[name]?.1 ?? NSCache<AnyObject, AnyObject>()
         let diskCache = DiskCache(path: formatPath, capacity : format.diskCapacity)
         self.formats[name] = (format, memoryCache, diskCache)
     }
